@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Hello World</title>
+</head>
+<style>* {padding: 0; margin: 0}</style>
+  <script src="/lib/pixi.js" type="text/javascript"></script>
+  <script src="/src/Game/KeyboardManager.js" type="text/javascript"></script>
+  <script src="/src/Game/MouseManager.js" type="text/javascript"></script>
+  <script src="/src/Game.js" type="text/javascript"></script>
+  <script src="/src/main.js" type="text/javascript"></script>
+<body>
+  <script type="text/javascript">
+    
+    var game = null;
+    
+    function setup() {
+      game = new DemoGame(640, 480, 0x061639);
+      game.run();
+    }
+    
+    window.addEventListener('load', function() {
+      setup();
+    }, false);
+
+//    // Create stage and renderer.
+//    var stage = new Container();
+//        renderer = autoDetectRenderer(window.innerWidth, window.innerHeight);
+//    
+//    document.body.appendChild(renderer.view);
+//    renderer.backgroundColor = 0x061639;
+//    renderer.view.style.position = "absolute";
+//    renderer.autoResize = true;
+//    
+//    // Main character
+//    var goldenKnight;
+//    var state;
+//    var gameObjects = [];
+//    var score_count = 0;
+//    loader.add("images/golden_knight.png").load();
+//    goldenKnight = new PIXI.Sprite(
+//      PIXI.loader.resources["images/golden_knight.png"].texture
+//    );
+//    console.log(goldenKnight);
+//    console.log(PIXI.loader.resources);
+//    stage.addChild(goldenKnight);
+//
+//    function setup() {
+//      
+//      // Setup input.
+//      setupMovementKeybindings(goldenKnight);
+//
+//      // Set game state
+//      state = play;
+//      
+//      mouse = mouseHandler;
+//      
+//      renderer.plugins.interaction.on( 'mouseup', function(event) {
+//        console.log('Registered click: ' + 'coordinates: ' +        event.data.global.x + " "
+//                   + event.data.global.y + " on object: " + event.currentTarget);
+//        mouse.isClicked = true;
+//        mouse.clickedPos = new PIXI.Point(event.data.global.x,
+//                                          event.data.global.y);
+//        event.stopPropagation();
+//      });
+//
+//      // Start game loop
+//      gameLoop();
+//    }
+//
+//    function gameLoop() {
+//      requestAnimationFrame(gameLoop);
+//      
+//      //@TODO: Spawn smaller square at the location of the current square.
+//      state();
+//      console.log(stage.children[0]);
+//      renderer.render(stage);
+//    }
+//
+//    function play() {
+//
+//      score_count += 1;
+//      //Use the goldenKnight's velocity to make it move
+//      if (mouse.isClicked) {
+//        console.log("Mouse is clicked, object location: " + goldenKnight.x + " " + goldenKnight.y);
+//        // Create game objects.
+//        var circle = new Graphics();
+//        circle.beginFill(0xe74ffff);
+//        circle.drawCircle(goldenKnight.x + 25, goldenKnight.y + 25, 10);
+//        circle.endFill();
+//        stage.addChild(circle);
+//        
+//        var obj = new moveToPoint(circle, mouse.clickedPos);
+//        gameObjects.push(obj);
+//        
+//        mouse.isClicked = false;
+//      }
+//      
+//      for (i = 0; i < gameObjects.length; i++) {
+//        gameObjects[i].update();
+////        console.log(gameObjects[i].object.x);
+//      }
+//      
+//      goldenKnight.x += goldenKnight.vx;
+//      goldenKnight.y += goldenKnight.vy;
+//    }
+//    
+//    function mouseHandler() {
+//      var clickedPos;
+//      var isClicked = false;
+//    }
+//    
+//    // object should be an instance of graphics that has already been created.
+//    // This will manage updating the object and perhaps removing it.
+//    function moveToPoint(object, point) {
+//      this.object = object; // Object to update.
+//      this.object.vx = 1;
+//      this.object.vy = 1;
+//      this.dest = new PIXI.Point(point.x, point.y);
+//      this.speed = 1;
+//      console.log(this.object.x);
+//      console.log(this.object.getBounds().x);
+//      this.object.x = this.object.getBounds().x;
+//      this.object.y = this.object.getBounds().y;
+//      var speed = 1;
+//
+//      console.log("Moving object @ " + object.x + ", " + object.y + 
+//                  " to point: x = " + point.x +
+//                  " y = " + point.y);
+//      
+//      if ((this.dest.x - this.object.x) < 0) {
+//        this.object.vx = -1 * speed;
+//      }
+//      
+//      if ((this.dest.y - this.object.y) < 0) {
+//        this.object.vy = -1 * speed;
+//      }
+//
+//      this.object.vy = ((this.dest.y - this.object.y) /
+//              (this.dest.x - this.object.x)) * this.object.vy;
+//      
+//      this.update = function () {
+//        this.object.x += this.object.vx;
+//        this.object.y += this.object.vy;
+//      }
+//    }
+//    
+//    setup();
+  </script>
+</body>
+</html>
