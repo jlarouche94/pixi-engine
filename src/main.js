@@ -9,7 +9,7 @@
   var knight;
   var knightSpeed = 120;
   var knightFrameSpeed = 0;
-  var gameObject = [];
+  var gameObjects = [];
   
   DemoGame.prototype.init = function() {
     Game.prototype.init.apply(this);
@@ -73,6 +73,8 @@
     projectile.drawCircle(knight.x, knight.y, 10);
     projectile.endFill();
     this.root().addChild(projectile);
+
+    this.gameObjects.push(projectile);
   }
   
   $window.DemoGame = DemoGame;
