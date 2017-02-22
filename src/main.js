@@ -20,8 +20,8 @@
     this.keyboard().enable();
     this.mouse().enable();
     
-    var txKnight = new PIXI.Texture.fromImage("/images/golden_knight.png");
-    txGreenBall = new PIXI.Texture.fromImage("/images/green_ball.png");
+    var txKnight = new PIXI.Texture.fromImage("images/golden_knight.png");
+    txGreenBall = new PIXI.Texture.fromImage("images/green_ball.png");
     
     knight = new PIXI.Sprite(txKnight);
     knight.anchor.set(0.5, 0.5);
@@ -59,8 +59,8 @@
     this.moveKnight(_movement);
 
     for (var i = 0; i < objects.length; i++) {
-      objects[i].position.x += objects[i].vx;
-      objects[i].position.y += objects[i].vy;
+	  objects[i].position.x += 1 * Math.cos(objects[i].angle)
+	  objects[i].position.y += 1 * Math.sin(objects[i].angle)
     }
     
     return true;
@@ -85,23 +85,15 @@
     // Get velocity of projectile on the x and y axis.
     var speed = 1;
     var dest = new PIXI.Point(this.mouse().pressedPosition[0], this.mouse().pressedPosition[1]);
-    if ((dest.x - knight.position.x) < 0) {
-      projectile.vx = -1 * speed;
-    } else {
-      projectile.vx = 1 * speed;
-    }
-
-    if ((dest.y - knight.position.y) < 0) {
-      projectile.vy = -1 * speed;
-    } else {
-      projectile.vy = 1 * speed;
-    }
+	
+    var deltax = dest.x - knight.position.x
+	var deltay = dest.y - knight.position.y
+	var angle = Math.atan2(deltay, deltax)
+	//angle = angle * 180 / Math.PI
+	console.log(angle);
+	projectile.angle = angle
+	
     console.log(knight.position.x, knight.position.y);
-    console.log(projectile.vy, projectile.vx);
-
-    projectile.vy = ((dest.y - knight.position.y) /
-                     (dest.x - knight.position.x)) * projectile.vy;
-    console.log(projectile.vy, projectile.vx);
 
     objects.push(projectile);
 
