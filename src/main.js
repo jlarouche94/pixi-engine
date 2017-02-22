@@ -7,9 +7,10 @@
   Game.extendTo(DemoGame);
 
   var knight;
+  var txGreenBall;
   var knightSpeed = 120;
   var knightFrameSpeed = 0;
-  var gameObjects = [];
+  var objects = [];
   
   DemoGame.prototype.init = function() {
     Game.prototype.init.apply(this);
@@ -20,6 +21,7 @@
     this.mouse().enable();
     
     var txKnight = new PIXI.Texture.fromImage("/images/golden_knight.png");
+    txGreenBall = new PIXI.Texture.fromImage("/images/green_ball.png");
     
     knight = new PIXI.Sprite(txKnight);
     knight.anchor.set(0.5, 0.5);
@@ -48,12 +50,18 @@
       _movement[0] = 1;
     }
     
-    if (this.mm.wasPressed(1)) {
+    if (this.mouse().isPressed(1)) {
+      console.log("MOUSE PRESSED")
       // Create a projectile.
       this.createProjectile();
     }
     
     this.moveKnight(_movement);
+
+    for (var i = 0; i < objects.length; i++) {
+      objects[i].position.x += objects[i].vx;
+      objects[i].position.y += objects[i].vy;
+    }
     
     return true;
   }
@@ -68,14 +76,36 @@
   };
   
   DemoGame.prototype.createProjectile = function() {
-    var projectile = new PIXI.Graphics();
-    projectile.beginFill(0xe74ffff);
-    projectile.drawCircle(knight.x, knight.y, 10);
-    projectile.endFill();
+    var projectile = new PIXI.Sprite(txGreenBall);
+    projectile.anchor.set(0.5, 0.5);
+    projectile.position.set(knight.position.x, knight.position.y);
+
     this.root().addChild(projectile);
 
-    this.gameObjects.push(projectile);
-  }
+    // Get velocity of projectile on the x and y axis.
+    var speed = 1;
+    var dest = new PIXI.Point(this.mouse().pressedPosition[0], this.mouse().pressedPosition[1]);
+    if ((dest.x - knight.position.x) < 0) {
+      projectile.vx = -1 * speed;
+    } else {
+      projectile.vx = 1 * speed;
+    }
+
+    if ((dest.y - knight.position.y) < 0) {
+      projectile.vy = -1 * speed;
+    } else {
+      projectile.vy = 1 * speed;
+    }
+    console.log(knight.position.x, knight.position.y);
+    console.log(projectile.vy, projectile.vx);
+
+    projectile.vy = ((dest.y - knight.position.y) /
+                     (dest.x - knight.position.x)) * projectile.vy;
+    console.log(projectile.vy, projectile.vx);
+
+    objects.push(projectile);
+
+  };
   
   $window.DemoGame = DemoGame;
 }(this, this.Game);
