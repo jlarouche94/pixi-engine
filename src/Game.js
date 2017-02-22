@@ -1,4 +1,4 @@
-!function($w, KeyboardManager, MouseManager) {
+!function($w, KeyboardManager, MouseManager, ObjectManager) {
   function Game(_w, _h, _bgColor) {
     _w = _w || 640;
     _h = _h || 480;
@@ -17,6 +17,7 @@
     
     this.kbm = null;
     this.mm = null;
+    this.objm = null;
     
     this._i_runloop = null;
   }
@@ -38,6 +39,7 @@
     
     this.kbm = new KeyboardManager(this, this.DEBUG);
     this.mm = new MouseManager(this, this.DEBUG);
+    this.objm = new ObjectManager(this, this.DEBUG);
     
     return true;
   };
@@ -49,6 +51,7 @@
   Game.prototype.update = function() {
     if (this.kbm) this.kbm.update();
     if (this.mm) this.mm.update();
+    if (this.objm) this.objm.update();
     
     return true;
   };
@@ -68,6 +71,10 @@
   
   Game.prototype.mouse = function() {
     return this.mm;
+  };
+
+  Game.prototype.objectmanager = function() {
+    return this.objm;
   };
   // Getters end.
   
@@ -113,4 +120,4 @@
   };
   
   $w.Game = Game;
-}(this, KeyboardManager, MouseManager);
+}(this, KeyboardManager, MouseManager, ObjectManager);
