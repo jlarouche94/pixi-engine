@@ -1,42 +1,35 @@
-!function ($window, Game) {
-  
-  function DemoGame() {
-    Game.apply(this, arguments);
+class DemoGame extends Game {
+  constructor(_w, _h, _bgColor) {
+    super(_w, _h, _bgColor);
+    this.knight;
+    this.txGreenBall;
+    this.knightSpeed = 120;
+    this.knightFrameSpeed = 0;
+    this.objects = [];
   }
-  
-  Game.extendTo(DemoGame);
 
-  var knight;
-  var txGreenBall;
-  var knightSpeed = 120;
-  var knightFrameSpeed = 0;
-  var objects = [];
-  
-  DemoGame.prototype.init = function() {
-    Game.prototype.init.apply(this);
+  init() {
+    super.init();
+    this.knightFrameSpeed = this.knightSpeed / this.config('FPS');
     
-    knightFrameSpeed = knightSpeed / this.config('FPS');
-    
-    this.keyboard().enable();
-    this.mouse().enable();
+    super.keyboard().enable();
+    super.mouse().enable();
     
     var txKnight = new PIXI.Texture.fromImage("images/golden_knight.png");
-    txGreenBall = new PIXI.Texture.fromImage("images/green_ball.png");
+    this.txGreenBall = new PIXI.Texture.fromImage("images/green_ball.png");
     
-    knight = new PIXI.Sprite(txKnight);
-    knight.anchor.set(0.5, 0.5);
-    knight.position.set(50, 50);
+    this.knight = new PIXI.Sprite(txKnight);
+    this.knight.anchor.set(0.5, 0.5);
+    this.knight.position.set(50, 50);
     
-    this.root().addChild(knight);
+    super.root().addChild(this.knight);
     
     return true;
-  };
-  
-  DemoGame.prototype.update = function() {
-    if (! Game.prototype.update.apply(this)) {
-      return false;
-    }
-    
+  }
+
+  update() {
+    super.update();
+
     var _movement = [0, 0];
     if (this.kbm.isPressed(38)) {
       _movement[1] = -1;
@@ -50,7 +43,7 @@
       _movement[0] = 1;
     }
     
-    if (this.mouse().isPressed(1)) {
+    if (super.mouse().isPressed(1)) {
       console.log("MOUSE PRESSED")
       // Create a projectile.
       this.createProjectile();
@@ -58,46 +51,45 @@
     
     this.moveKnight(_movement);
 
-    for (var i = 0; i < objects.length; i++) {
-	  objects[i].position.x += 1 * Math.cos(objects[i].angle)
-	  objects[i].position.y += 1 * Math.sin(objects[i].angle)
+    for (var i = 0; i < this.objects.length; i++) {
+      this.objects[i].position.x += 1 * Math.cos(this.objects[i].angle)
+      this.objects[i].position.y += 1 * Math.sin(this.objects[i].angle)
     }
     
     return true;
   }
-  
-  DemoGame.prototype.moveKnight = function(vec) {
+
+  moveKnight(vec) {
     var _len = Math.sqrt( vec[0]*vec[0] + vec[1]*vec[1] );
     if (_len == 0) return;
     
-    knight.position.x += (vec[0] / _len) * knightFrameSpeed;
-    knight.position.y += (vec[1] / _len) * knightFrameSpeed;
+    this.knight.position.x += (vec[0] / _len) * this.knightFrameSpeed;
+    this.knight.position.y += (vec[1] / _len) * this.knightFrameSpeed;
     
   };
   
-  DemoGame.prototype.createProjectile = function() {
-    var projectile = new PIXI.Sprite(txGreenBall);
+  createProjectile() {
+    var projectile = new PIXI.Sprite(this.txGreenBall);
     projectile.anchor.set(0.5, 0.5);
-    projectile.position.set(knight.position.x, knight.position.y);
+    projectile.position.set(this.knight.position.x, this.knight.position.y);
 
-    this.root().addChild(projectile);
+    super.root().addChild(projectile);
 
     // Get velocity of projectile on the x and y axis.
     var speed = 1;
-    var dest = new PIXI.Point(this.mouse().pressedPosition[0], this.mouse().pressedPosition[1]);
-	
-    var deltax = dest.x - knight.position.x
-	var deltay = dest.y - knight.position.y
-	var angle = Math.atan2(deltay, deltax)
-	//angle = angle * 180 / Math.PI
-	console.log(angle);
-	projectile.angle = angle
-	
-    console.log(knight.position.x, knight.position.y);
+    var dest = new PIXI.Point(super.mouse().pressedPosition[0], super.mouse().pressedPosition[1]);
+  
+    var deltax = dest.x - this.knight.position.x
+    var deltay = dest.y - this.knight.position.y
+    var angle = Math.atan2(deltay, deltax)
+    //angle = angle * 180 / Math.PI
+    console.log(angle);
+    projectile.angle = angle
+  
+    console.log(this.knight.position.x, this.knight.position.y);
 
-    objects.push(projectile);
+    this.objects.push(projectile);
 
   };
   
-  $window.DemoGame = DemoGame;
-}(this, this.Game);
+}

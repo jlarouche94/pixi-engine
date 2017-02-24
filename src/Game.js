@@ -1,8 +1,8 @@
-!function($w, KeyboardManager, MouseManager, ObjectManager) {
-  function Game(_w, _h, _bgColor) {
-    _w = _w || 640;
-    _h = _h || 480;
-    _bgColor = _bgColor || 0x00000000;
+class Game {
+  constructor(_w, _h, _bgColor) {
+    this._w = _w || 640;
+    this._h = _h || 480;
+    this._bgColor = _bgColor || 0x00000000;
     
     this._config = {
       'resolution': { 'width': _w, 'height': _h },
@@ -21,10 +21,10 @@
     
     this._i_runloop = null;
   }
-  
-  Game.prototype.buildRenderer = function(rendererTarget, rendererClass) {
+
+  buildRenderer(rendererTarget, rendererClass) {
     if (! rendererClass) rendererClass = PIXI.WebGLRenderer;
-    if (! rendererTarget) rendererTarget = $w.document.body;
+    if (! rendererTarget) rendererTarget = document.body;
     
     this.renderer = new rendererClass(this.config().resolution.width,
                                      this.config().resolution.height);
@@ -34,7 +34,7 @@
     this._root = new PIXI.Container();
   };
   
-  Game.prototype.init = function() {
+  init() {
     this.buildRenderer();
     
     this.kbm = new KeyboardManager(this, this.DEBUG);
@@ -44,11 +44,11 @@
     return true;
   };
   
-  Game.prototype.draw = function() {
+  draw() {
     this.renderer.render(this._root);
   };
   
-  Game.prototype.update = function() {
+  update() {
     if (this.kbm) this.kbm.update();
     if (this.mm) this.mm.update();
     if (this.objm) this.objm.update();
@@ -56,29 +56,29 @@
     return true;
   };
   
-  Game.prototype.config = function(e) {
+  config(e) {
     return e ? this._config[e] : this._config;
   };
   
   // Getters start
-  Game.prototype.root = function() {
+  root() {
     return this._root;
   };
   
-  Game.prototype.keyboard = function() {
+  keyboard() {
     return this.kbm;
   };
   
-  Game.prototype.mouse = function() {
+  mouse() {
     return this.mm;
   };
 
-  Game.prototype.objectmanager = function() {
+  objectmanager() {
     return this.objm;
   };
   // Getters end.
   
-  Game.prototype.run = function() {
+  run() {
     if (this.init() == true) {
       var _game = this;
       
@@ -102,22 +102,9 @@
       return false;
     }
   };
-  
-  Game.prototype._cleanUp = function() {
-    if (this._root) this._root.removeChidlren();
-  };
-  
-  Game.prototype.terminate = function() {
+    
+  terminate() {
     console.info('Run loop terminated request');
     clearInterval(this._i_runloop);
-    this._cleanUp();
   }
-  
-  Game.extendTo = function(cl) {
-    for (var pi in Game.prototype) {
-      cl.prototype[pi] = Game.prototype[pi];
-    }
-  };
-  
-  $w.Game = Game;
-}(this, KeyboardManager, MouseManager, ObjectManager);
+}
