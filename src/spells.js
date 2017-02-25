@@ -27,6 +27,24 @@ class Spell {
       
     this.renderObj.position.x += this.vectorX * delta;
     this.renderObj.position.y += this.vectorY * delta;
+
+    //there is a better way to do this but we need a collision normal
+    if (this.renderObj.position.x > 650){
+      this.vectorX = this.vectorX * -1 * 0.7; // bounce but slow down a little
+      this.renderObj.position.x = 650;
+    }
+    if(this.renderObj.position.x < 0){
+      this.vectorX = this.vectorX * -1 * 0.7; // bounce but slow down a little
+      this.renderObj.position.x = 0;
+    }
+    if (this.renderObj.position.y > 450){
+      this.vectorY = this.vectorY * -1 * 0.7; // bounce but slow down a little
+      this.renderObj.position.y = 450;
+    }
+    if(this.renderObj.position.y < 0){
+      this.vectorY = this.vectorY * -1 * 0.7; // bounce but slow down a little
+      this.renderObj.position.y = 0;
+    }
   }
   
   //we need a memory manager type thing maybe?

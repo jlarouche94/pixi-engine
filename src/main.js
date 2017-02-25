@@ -72,6 +72,15 @@ class DemoGame extends Game {
 	var spell = new Spell(super.root(), this.knight.position.x , this.knight.position.y, 
 						super.mouse().pressedPosition[0], super.mouse().pressedPosition[1], this.txGreenBall)
 	this.objects.push(spell);
+  spell = new Spell(super.root(), this.knight.position.x , this.knight.position.y, 
+            super.mouse().pressedPosition[0], super.mouse().pressedPosition[1], this.txGreenBall)
+  this.objects.push(spell);
+  spell = new Spell(super.root(), this.knight.position.x , this.knight.position.y, 
+            super.mouse().pressedPosition[0], super.mouse().pressedPosition[1], this.txGreenBall)
+  this.objects.push(spell);
+  spell = new Spell(super.root(), this.knight.position.x , this.knight.position.y, 
+            super.mouse().pressedPosition[0], super.mouse().pressedPosition[1], this.txGreenBall)
+  this.objects.push(spell);
   };
   
 }
