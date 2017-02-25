@@ -20,7 +20,11 @@ class Spell {
     
   update(delta){
 	this.lifetime -= delta;
-	
+    
+    if (this.lifetime < 300 && this.toDestroy() == false) {
+      this.renderObj.alpha -= 0.0034; // Fade over 300 frames.
+    }
+    
 	//simulate gravity
 	this.vectorY += delta * 0.05;//gavity const
     

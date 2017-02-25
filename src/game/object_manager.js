@@ -38,7 +38,6 @@ class ObjectManager {
       // Check if the object needs to be destroyed. (we need to decise whether the object should do it or the object manager.
       // if the object manager is going to do it perhaps we could find a better way of organizing the data.)
       if (object.reference.toDestroy()) {
-        console.log(object);
         object.reference.destroy();
         this.objects.splice(i, 1);
         continue;
