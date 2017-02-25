@@ -36,6 +36,15 @@ class DemoGame extends Game {
   createProjectile() {
     var spell = new Spell(super.root(), this.knight.sprite.position, this.mouse().pressedPosition, this.txGreenBall);
     super.objectmanager().add(spell, 1);
-  };
+
+	var spell = new Spell(super.root(), this.knight.sprite.position, this.mouse().pressedPosition, this.txGreenBall);
+	super.objectmanager().add(spell, 1);
+    spell = new Spell(super.root(), this.knight.sprite.position, this.mouse().pressedPosition, this.txGreenBall);
+    super.objectmanager().add(spell, 1);
+    spell = new Spell(super.root(), this.knight.sprite.position, this.mouse().pressedPosition, this.txGreenBall);
+    super.objectmanager().add(spell, 1);
+    spell = new Spell(super.root(), this.knight.sprite.position, this.mouse().pressedPosition, this.txGreenBall);
+    super.objectmanager().add(spell, 1);
+    };
   
 }

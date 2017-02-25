@@ -13,12 +13,11 @@ class Spell {
     var deltax = targetPoint.x - startPoint.x;
     var deltay = targetPoint.y - startPoint.y;
     var angle = Math.atan2(deltay, deltax) + (Math.random() * 0.5 - 0.25);
-	//vector based physics instead of angle based.
-	this.vectorX = this.speed * Math.cos(angle);
+    //vector based physics instead of angle based.
+    this.vectorX = this.speed * Math.cos(angle);
     this.vectorY = this.speed * Math.sin(angle);
-
   }
-  
+    
   update(delta){
 	this.lifetime -= delta;
 	
@@ -26,14 +25,37 @@ class Spell {
 	this.vectorY += delta * 0.05;//gavity const
     
 	this.renderObj.position.x += this.vectorX * delta;
+
     this.renderObj.position.y += this.vectorY * delta;
+
+    //there is a better way to do this but we need a collision normal
+    if (this.renderObj.position.x > 650){
+      this.vectorX = this.vectorX * -1 * 0.7; // bounce but slow down a little
+      this.renderObj.position.x = 650;
+    }
+    if(this.renderObj.position.x < 0){
+      this.vectorX = this.vectorX * -1 * 0.7; // bounce but slow down a little
+      this.renderObj.position.x = 0;
+    }
+    if (this.renderObj.position.y > 450){
+      this.vectorY = this.vectorY * -1 * 0.7; // bounce but slow down a little
+      this.renderObj.position.y = 450;
+    }
+    if(this.renderObj.position.y < 0){
+      this.vectorY = this.vectorY * -1 * 0.7; // bounce but slow down a little
+      this.renderObj.position.y = 0;
+    }
+  }
+  
+  destroy() {
+    this.renderObj.destroy();
   }
   
   //we need a memory manager type thing maybe?
   toDestroy(){
-	  if (lifetime < 0){
-		  return true;
-	  }
-	  return false;
+    if (this.lifetime < 0){
+      return true;
+    }
+    return false;
   }
 }

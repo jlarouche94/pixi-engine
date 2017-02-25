@@ -25,7 +25,7 @@ class ObjectManager {
     }
     
     var args = Array.prototype.slice.call(arguments, 1); // Dont make object part of the arguements.
-    var obj = {'object': object,
+    var obj = {'reference': object,
               'parameters': args}
     this.objects.push(obj);
     console.log(obj["parameters"]);
@@ -33,8 +33,19 @@ class ObjectManager {
 
   update() {
     for (var i = 0; i < this.objects.length; i++) {
+      var object = this.objects[i];
+      
+      // Check if the object needs to be destroyed. (we need to decise whether the object should do it or the object manager.
+      // if the object manager is going to do it perhaps we could find a better way of organizing the data.)
+      if (object.reference.toDestroy()) {
+        console.log(object);
+        object.reference.destroy();
+        this.objects.splice(i, 1);
+        continue;
+      }
+      
       // Call the objects update function with the parameters applied.
-      this.objects[i].object.update.apply(this.objects[i].object, this.objects[i].parameters);
+      object.reference.update.apply(object.reference, object.parameters);
     }
   }
 }
