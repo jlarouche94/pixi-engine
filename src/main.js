@@ -52,8 +52,7 @@ class DemoGame extends Game {
     this.moveKnight(_movement);
 
     for (var i = 0; i < this.objects.length; i++) {
-      this.objects[i].position.x += 1 * Math.cos(this.objects[i].angle)
-      this.objects[i].position.y += 1 * Math.sin(this.objects[i].angle)
+      this.objects[i].update(1); // delta is 1 for now...testing
     }
     
     return true;
@@ -69,27 +68,10 @@ class DemoGame extends Game {
   };
   
   createProjectile() {
-    var projectile = new PIXI.Sprite(this.txGreenBall);
-    projectile.anchor.set(0.5, 0.5);
-    projectile.position.set(this.knight.position.x, this.knight.position.y);
-
-    super.root().addChild(projectile);
-
-    // Get velocity of projectile on the x and y axis.
-    var speed = 1;
-    var dest = new PIXI.Point(super.mouse().pressedPosition[0], super.mouse().pressedPosition[1]);
-  
-    var deltax = dest.x - this.knight.position.x
-    var deltay = dest.y - this.knight.position.y
-    var angle = Math.atan2(deltay, deltax)
-    //angle = angle * 180 / Math.PI
-    console.log(angle);
-    projectile.angle = angle
-  
-    console.log(this.knight.position.x, this.knight.position.y);
-
-    this.objects.push(projectile);
-
+	  
+	var spell = new Spell(super.root(), this.knight.position.x , this.knight.position.y, 
+						super.mouse().pressedPosition[0], super.mouse().pressedPosition[1], this.txGreenBall)
+	this.objects.push(spell);
   };
   
 }
