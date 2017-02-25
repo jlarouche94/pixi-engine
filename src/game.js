@@ -39,7 +39,7 @@ class Game {
     
     this.kbm = new KeyboardManager(this, this.DEBUG);
     this.mm = new MouseManager(this, this.DEBUG);
-    this.objm = new ObjectManager(this, this.DEBUG);
+    this.objm = new ObjectManager();
     
     return true;
   };

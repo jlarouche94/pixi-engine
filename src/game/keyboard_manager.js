@@ -1,5 +1,6 @@
 class KeyboardManager {
   constructor(_game, _debug) {
+    this.instance;
     this.game = game;
     this.debug = _debug || false;
     
@@ -72,7 +73,7 @@ class KeyboardManager {
       this.state.justreleased[keycode] = true;
     }
     
-    if (this.debug) console.debug("KEYUP", keycode, String.fromCharCode(keycode));
+//    if (this.debug) console.debug("KEYUP", keycode, String.fromCharCode(keycode));
     this.state.pressed[keycode] = false;
     event.stopPropagation();
     return false;
@@ -88,7 +89,7 @@ class KeyboardManager {
       this.state.justpressed[keycode] = true;
     }
     
-    if (this.debug) console.debug("KEYUP", keycode, String.fromCharCode(keycode));
+//    if (this.debug) console.debug("KEYDOWN", keycode, String.fromCharCode(keycode));
     this.state.pressed[keycode] = true;
     
     event.stopPropagation();
