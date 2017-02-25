@@ -1,6 +1,6 @@
 class Knight {
   constructor(container, kbm) { // Perhaps we could make some singleton management class so we dont have to pass these around.
-    var texture = new PIXI.Texture.fromImage("images/golden_knight.png");
+    var texture = new PIXI.Texture.fromImage("images/roman.png");
     this.sprite = new PIXI.Sprite(texture);
     this.sprite.anchor.set(0.5, 0.5);
     this.sprite.position.set(50, 50);
