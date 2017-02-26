@@ -17,6 +17,10 @@ class DemoGame extends Game {
 
     return true;
   }
+  
+  static config() {
+    return super.config();
+  }
 
   update() {
     super.update();

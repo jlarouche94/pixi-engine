@@ -28,7 +28,6 @@ class ObjectManager {
     var obj = {'reference': object,
               'parameters': args}
     this.objects.push(obj);
-    console.log(obj["parameters"]);
   }
 
   update() {

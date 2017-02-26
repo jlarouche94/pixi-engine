@@ -10,6 +10,8 @@ class Game {
       'FPS': 60
     };
     
+    window._config = this._config;
+    
     this.DEBUG = true;
     
     this.renderer = null;
@@ -20,6 +22,10 @@ class Game {
     this.objm = null;
     
     this._i_runloop = null;
+  }
+  
+  static config() {
+    return Game._config;
   }
 
   buildRenderer(rendererTarget, rendererClass) {

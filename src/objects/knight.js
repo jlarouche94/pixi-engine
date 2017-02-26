@@ -35,15 +35,15 @@ class Knight {
   updateMovement() {
     this.movement = [0, 0];
     if (this.kbm.isPressed(38)) {
-      this.movement[1] = -1;
+      this.movement[1] = -2;
     } else if (this.kbm.isPressed(40)) {
-      this.movement[1] = 1;
+      this.movement[1] = 2;
     }
     
     if (this.kbm.isPressed(37)) {
-      this.movement[0] = -1;
+      this.movement[0] = -2;
     } else if (this.kbm.isPressed(39)) {
-      this.movement[0] = 1;
+      this.movement[0] = 2;
     }
   }
 }
