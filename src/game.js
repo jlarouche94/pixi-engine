@@ -23,10 +23,6 @@ class Game {
     
     this._i_runloop = null;
   }
-  
-  static config() {
-    return Game._config;
-  }
 
   buildRenderer(rendererTarget, rendererClass) {
     if (! rendererClass) rendererClass = PIXI.WebGLRenderer;
