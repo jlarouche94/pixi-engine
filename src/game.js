@@ -78,6 +78,10 @@ class Game {
   objectmanager() {
     return this.objm;
   };
+  
+  renderer() {
+    return this.renderer;
+  }
   // Getters end.
   
   run() {
