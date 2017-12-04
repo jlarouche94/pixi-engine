@@ -11,35 +11,35 @@ class DemoGame extends Game {
 
   init() {
     super.init();
-    
+
     super.keyboard().enable();
     super.mouse().enable();
-    
-    this.txGreenBall = new PIXI.Texture.fromImage("images/green_ball.png");
+
+    this.txGreenBall = new PIXI.Texture.fromImage("images/fire_ball.png");
     this.txGround = new PIXI.Texture.fromImage("images/ground-patch.png");
 
     this.knight = new Knight(super.root(), super.keyboard());
     super.objectmanager().add(this.knight);
-    
+
     this.buildGroundPlatform();
 
     return true;
   }
-  
+
   update() {
     super.update();
-    
+
     if (super.mouse().isPressed(1)) {
       console.log("MOUSE PRESSED")
       // Create a projectile.
       this.createProjectile();
     }
-    
+
     this.objectmanager().update();
-    
+
     return true;
   }
-  
+
   buildGroundPlatform() {
     var groundNum = window._config.resolution.width / 64 // Ground patch is 64 pixels.
     console.log(groundNum);
@@ -55,11 +55,11 @@ class DemoGame extends Game {
       super.root().addChild(sprite);
       xPosition += 64;
     }
-    
+
     console.log(this.groundContainer.children);
-    
+
   }
-  
+
   createProjectile() {
     var spell = new Spell(super.root(), this.knight.sprite.position, this.mouse().pressedPosition, this.txGreenBall);
     super.objectmanager().add(spell, 1);
@@ -73,5 +73,5 @@ class DemoGame extends Game {
     spell = new Spell(super.root(), this.knight.sprite.position, this.mouse().pressedPosition, this.txGreenBall);
     super.objectmanager().add(spell, 1);
     };
-  
+
 }
